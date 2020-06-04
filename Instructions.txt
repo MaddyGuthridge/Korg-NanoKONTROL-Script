@@ -1,0 +1,96 @@
+------------------------------------------------------------------------
+Korg nanoKONTROL User Script for FL Studio
+Created by: Miguel Guthridge [hdsq@outlook.com.au]
+V 1.0
+------------------------------------------------------------------------
+
+INTRO
+FL Studio's built-in control script for the Korg NanoKontrol doesn't work for my controller, so I decided to make my own one!
+I get the feeling that this script is far more advanced than the existing one would have been anyway. Here are some of the more powerful uses:
+ - Browser control: preview samples and navigate the browser
+ - Usage-sensitive controls: controls have different actions depending on the active window
+ - Parameter snapping: if a parameter is moved near the default value, it will snap to it
+
+------------------------------------------------------------------------
+
+BASIC USAGE
+ - Play: play/pause
+ - Stop: stop (double press stops all sound?)
+ - Skip (forward/backwards): fast-forward/rewind
+ - Record: arm/disarm recording
+ - Loop: switch loop mode (pattern/song)
+
+LONG PRESSES
+Pressing and holding a button for 0.5 seconds can trigger alternate actions.
+ - Stop: Escape (close current window)
+
+LOOP MODIFIERS
+Pressing a button while the loop button is held overrides window-specific usage and causes the default actions to occur.
+
+WINDOW-SPECIFIC USAGE
+In some windows, buttons trigger alternate actions relative to the functions in that window. These override the basic controls.
+
+	BROWSER
+	 - Play: Play selected sample, or expand selected folder
+	 - Stop: Collapse selected folder
+	 - Skip (forwards/backwards): Select next/previous file
+
+	PLAYLIST
+	 - Skip (forwards/backwards): Jump to next/previous marker (if no markers exist, the default action is taken)
+
+	MIXER
+	 - Skip (forwards/backwards): Selects the next/previous track
+	 - Record: Arms/Disarms current track for recording
+	 - Button #9 (upper): Solos the selected track
+	 - Button #9 (lower): Mutes the selected track
+	 - Fader #9: Sets the volume of the selected track
+	 - Knob #9: Sets the pan of the selected track
+	 - Buttons #1-8 (upper): Solos tracks 1-8 respectively
+	 - Buttons #1-8 (lower): Mutes tracks 1-8 respectively
+	 - Faders #1-8: Sets the volume for tracks 1-8 respectively
+	 - Knobs #1-8: Sets the panning for tracks 1-8 respectively
+
+	CHANNEL RACK
+	 - Skip (forwards/backwards): Selects the next/previous channel
+	 - Button #9 (upper): Solos the selected channel
+	 - Button #9 (lower): Mutes the selected channel
+	 - Fader #9: Sets the volume of the selected channel
+	 - Knob #9: Sets the panning of the selected channel
+
+ADVANCED
+A few features can be modified by changing constants in the script.
+ - LONG_PRESS_TIME indicates how long a key needs to be held for for a long press
+ - ENABLE_SNAPPING indicates whether knobs and faders will snap to default values
+ - SNAP_RANGE indicates how close a knob needs to be to the default value in order to snap
+ - Mixer and Channel rack snap values indicate what values to snap to for different variables
+
+------------------------------------------------------------------------
+
+KNOWN ISSUES
+ - Actions don't produce the listed outcome: Perform a reset of your controller. Refer to your user guide for instructions. If this doesn't help, send me a bug report (see below)
+ - Using Knob 3 while in scene 1 mutes all tracks except track 1: The MIDI event for Scene 4 upper button 1 and Scene 1 knob 3 is the same, so therefore it is impossible to fix this issue. I suggest performing these actions in scene 2 or 3, at least until I figure out how to update the controller's internal state to match the active FL Studio Window
+ - Using Knob 4 while in scene 1 mutes track 1: See above.
+
+DEBUGGING
+If you encounter some unexpected behaviour, please contact me (my email is above). Make sure you include the following info:
+ - What you did
+ - What you expected to happen
+ - What actually happened
+ - What scene mode your controller was on (1-4)
+ - A copy of the controller's script output
+
+------------------------------------------------------------------------
+
+PLANS FOR FUTURE BUILDS (If I have time)
+ - Use Upper Buttons #1-8 to enable and disable grid bits in selected channel, using some lower buttons to navigate between sections. Display status of grid bits using LED indicators.
+ - Light up LEDs to indicate tracks that are muted/solo'd. I don't know if this is possible (if someone has a programming guide for this controller please tell me!)
+ - Configure scene button and scene indicators so that they control FL Studio's active window (mixer, playlist, etc). I had this working a little bit but it broke too easily - once again a programming guide would be nice.
+ - More long press functions
+ - Allow usage in popup windows to control the UI (selecting yes/no, etc)
+ - Use a loop modifier in the mixer to change stereo width using the knobs (already implemented, just need a function)
+
+FAQ
+ - Can I use parts of this script in other scripts for my own controllers?
+	Go ahead! I put too much effort into this for it to be only used for one controller
+ - Is this guaranteed to work?
+	Hahahaha nope! I mean, it works for me, but my device could be wack lol.
